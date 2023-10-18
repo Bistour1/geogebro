@@ -1,10 +1,11 @@
 class GraphFunction(object):
 
-    def __init__(self, fun):
-        self.f = fun
+    def __init__(self, funString):
+        self.funString = funString
+        self.f = eval(f"lambda x: {funString}")
 
     def __str__(self):
-        return f"GraphFunction:(function : {self.f}"
+        return f"GraphFunction:(function : {self.funString}"
 
     def getDomain(self, start: float, end: float, density: int):
         """
