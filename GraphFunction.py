@@ -58,5 +58,7 @@ class GraphFunction(object):
             if type(self.f(x)) != complex:
                 return True
             return False
-        except ZeroDivisionError or ValueError:
+        except ZeroDivisionError:
+            return False
+        except ValueError:
             return False

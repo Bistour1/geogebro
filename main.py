@@ -94,7 +94,7 @@ def trace_function(fun, zoomParameter = 1):
             continuous = not continuous
         else:
             if continuous:
-                turtle.goto(i - width, fun.f(x) * zoomParameter)
+                turtle.goto(i - width, max(min(fun.f(x) * zoomParameter,height),-1*height))
                 turtle.pendown()
             else:
                 turtle.penup()
