@@ -99,6 +99,7 @@ def trace_function(fun, zoomParameter = 1):
             if continuous:
                 continuous = False
                 turtle.penup()
+        x += step
     turtle.update()
 
 
