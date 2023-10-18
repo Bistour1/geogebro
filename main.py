@@ -2,6 +2,7 @@ import turtle
 from math import sin, cos, tan, exp, pi
 import time
 import screeninfo
+from GraphFunction import GraphFunction
 
 
 def retrace(parameters,*funs):
@@ -71,7 +72,7 @@ def trace_function(fun, zoomParameter = 1):
     Trace the give function in red
 
     :param fun: function to be traced
-    :type fun: function
+    :type fun: GraphFunction
     """
     turtle.tracer(0,0)
     height = int(turtle.window_height() // 2)
@@ -81,12 +82,23 @@ def trace_function(fun, zoomParameter = 1):
         zoomParameter = 1
     turtle.color("red")
     turtle.penup()
-    if type(fun(-1*width / zoomParameter)*zoomParameter) != complex:
-        turtle.goto(-1*width, int(max(min(int(fun(-1*width / zoomParameter) * zoomParameter), height), -1*height)))
-    turtle.pendown()
-    for i in range(-1*width, width):
-        if type(fun(i / zoomParameter)*zoomParameter) != complex:
-            turtle.goto(i, max(min(fun(i / zoomParameter) * zoomParameter, height), -1*height))
+    left_limit = -1*width/zoomParameter
+    right_limit = width/zoomParameter
+    domain = fun.getDomain(left_limit,right_limit, 2*width)
+    step = 1/zoomParameter
+    x = left_limit
+    turtle.penup()
+    continuous = False
+    for _ in range(2*width):
+        if x in domain:
+            if not continuous:
+                continuous = True
+                turtle.pendown()
+            turtle.goto(x, fun.f(x) * zoomParameter)
+        else:
+            if continuous:
+                continuous = False
+                turtle.penup()
     turtle.update()
 
 
@@ -102,6 +114,7 @@ if __name__ == "__main__":
     turtle.hideturtle()
     turtle.speed("fastest")
     f = eval("lambda x: " + turtle.textinput("Parameters","function :"))
+    f =  GraphFunction(f)
     zoom = float(turtle.numinput("parameter","zoom = "))
     turtle.onclick(retrace([zoom,f,zoom], trace_axis,trace_function),"f")
     turtle.listen()
