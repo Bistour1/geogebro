@@ -3,6 +3,9 @@ class GraphFunction(object):
     def __init__(self, fun):
         self.f = fun
 
+    def __str__(self):
+        return f"GraphFunction:(function : {self.f}"
+
     def getDomain(self, start: float, end: float, density: int):
         """
         Return the domain of the function between start and end.\n
