@@ -35,6 +35,10 @@ class graphFunction(object):
                     if not continuity:
                         continuity = True
                         dom.append(x)
+                else:
+                    if continuity:
+                        dom.append(x)
+                        continuity = False
             except ZeroDivisionError or ValueError:
                 if continuity:
                     dom.append(x)
