@@ -30,21 +30,26 @@ class GraphFunction(object):
         x = start
         dom = []  # list to store result
         for _ in range(density):  # check for each number if the function is defined at that point
-            try:
-                if type(self.f(x)) != complex:
-                    if not continuity:
-                        continuity = True
-                        dom.append(x)
-                else:
-                    if continuity:
-                        dom.append(x)
-                        continuity = False
-            except ZeroDivisionError or ValueError:
-                if continuity:
-                    dom.append(x)
-                    continuity = False
-            finally:
-                x += step
+            if self.inDomain(x) != continuity:
+                continuity = not continuity
+                dom.append(x)
+            x += step
         if continuity:
             dom.append(x)
         return dom
+
+    def inDomain(self, x: float):
+        """
+        Check if a number is in the domain of the function
+
+        :param x: number to check
+        :type x: float
+        :return: if x is in the domain of f
+        :rtype: bool
+        """
+        try:
+            if type(self.f(x)) != complex:
+                return True
+            return False
+        except ZeroDivisionError or ValueError:
+            return False
