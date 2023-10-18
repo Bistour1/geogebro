@@ -5,7 +5,19 @@ import screeninfo
 
 
 def retrace(parameters,*funs):
+    """
+    execute all the given function with the given parameters\n
+    you have to give as many parameters as the functions ask
+
+    :param parameters: arguments to give to the functions
+    :type parameters: list
+    :param funs: functions you want to execute
+    :type funs: function
+    :return: None
+    :rtype: None
+    """
     i = 0
+
     for f in funs:
         params = []
         for j in range(f.__code__.co_argcount):
@@ -13,7 +25,19 @@ def retrace(parameters,*funs):
         i += f.__code__.co_argcount
         params = tuple(params)
         f(*params)
-def trace_axis(zoom=1):
+def trace_axis(zoom=1.0):
+    """
+    Trace the x and y axis with the given zoom.\n
+    the zoom parameter doesn't make anything for now but will be useful when
+    graduations are added.
+
+    :param zoom: zoom of the screen
+    :type zoom: float
+    :return: None
+    :rtype: None
+    """
+
+
     turtle.tracer(0,0)
     height = int(turtle.window_height() // 2)
     width = int(turtle.window_width() // 2)
@@ -44,6 +68,7 @@ def trace_axis(zoom=1):
 
 def trace_function(fun, zoomParameter = 1):
     """
+    Trace the give function in red
 
     :param fun: function to be traced
     :type fun: function
