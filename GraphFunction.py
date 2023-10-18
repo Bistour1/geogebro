@@ -1,4 +1,4 @@
-class graphFunction(object):
+class GraphFunction(object):
 
     def __init__(self, fun):
         self.f = fun
