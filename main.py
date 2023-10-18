@@ -89,15 +89,14 @@ def trace_function(fun, zoomParameter = 1):
     x = left_limit
     turtle.penup()
     continuous = False
-    for _ in range(2*width):
+    for i in range(2*width):
         if x in domain:
-            if not continuous:
-                continuous = True
-                turtle.pendown()
-            turtle.goto(x, fun.f(x) * zoomParameter)
+            continuous = not continuous
         else:
             if continuous:
-                continuous = False
+                turtle.goto(i - width, fun.f(x) * zoomParameter)
+                turtle.pendown()
+            else:
                 turtle.penup()
         x += step
     turtle.update()
