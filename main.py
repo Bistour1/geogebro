@@ -1,5 +1,5 @@
 import turtle
-from math import sin, cos, tan, exp, pi
+from math import sin, cos, tan, exp, pi, log, log2, log10
 import time
 import screeninfo
 from GraphFunction import GraphFunction

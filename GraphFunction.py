@@ -1,4 +1,4 @@
-from math import sin, cos, tan, exp, pi
+from math import sin, cos, tan, exp, pi, log, log2, log10
 
 
 class GraphFunction(object):
