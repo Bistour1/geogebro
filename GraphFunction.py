@@ -5,7 +5,7 @@ class GraphFunction(object):
         self.f = eval(f"lambda x: {funString}")
 
     def __str__(self):
-        return f"GraphFunction:(function : {self.funString}"
+        return f"GraphFunction:(function : {self.funString})"
 
     def getDomain(self, start: float, end: float, density: int):
         """
