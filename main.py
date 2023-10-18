@@ -1,7 +1,6 @@
 import turtle
 from math import sin, cos, tan, exp, pi
 import time
-import threading
 import screeninfo
 
 
