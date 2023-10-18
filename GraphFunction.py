@@ -1,3 +1,6 @@
+from math import sin, cos, tan, exp, pi
+
+
 class GraphFunction(object):
 
     def __init__(self, funString):
