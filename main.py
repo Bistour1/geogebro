@@ -8,24 +8,24 @@ from GraphFunction import GraphFunction
 def retrace(parameters,*funs):
     """
     execute all the given function with the given parameters\n
-    you have to give as many parameters as the functions ask
+    you have to give as many parameters as the functions ask and name it
 
-    :param parameters: arguments to give to the functions
-    :type parameters: list
+    :param parameters: keywords arguments to give to the functions
+    :type parameters: dict
     :param funs: functions you want to execute
     :type funs: function
     :return: None
     :rtype: None
     """
-    i = 0
 
     for f in funs:
-        params = []
-        for j in range(f.__code__.co_argcount):
-            params.append(parameters[i+j])
-        i += f.__code__.co_argcount
-        params = tuple(params)
-        f(*params)
+        params = {}
+        for _ in range(f.__code__.co_argcount):
+            k = list(parameters.keys())[0]
+            p = parameters.pop(k)
+            if not (p is None):
+                params[k] = p
+        f(**params)
 def trace_axis(zoom=1.0):
     """
     Trace the x and y axis with the given zoom.\n
@@ -67,7 +67,7 @@ def trace_axis(zoom=1.0):
     turtle.update()
 
 
-def trace_function(fun, zoomParameter = 1):
+def trace_function(fun, zoomParameter = 1, color = "red"):
     """
     Trace the give function in red
 
@@ -80,7 +80,7 @@ def trace_function(fun, zoomParameter = 1):
     zoomParameter = zoomParameter * 30
     if zoomParameter == 0:
         zoomParameter = 1
-    turtle.color("red")
+    turtle.color(color)
     turtle.penup()
     left_limit = -1*width/zoomParameter
     right_limit = width/zoomParameter
@@ -115,6 +115,6 @@ if __name__ == "__main__":
     turtle.speed("fastest")
     f = GraphFunction(turtle.textinput("Parameters","function :"))
     zoom = float(turtle.numinput("parameter","zoom = "))
-    turtle.onclick(retrace([zoom,f,zoom], trace_axis,trace_function),"f")
+    turtle.onclick(retrace({"zoom": zoom,"fun": f,"zoomParameter": zoom, "color": None}, trace_axis,trace_function),"f")
     turtle.listen()
     turtle.mainloop()
