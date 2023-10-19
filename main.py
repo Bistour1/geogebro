@@ -86,10 +86,9 @@ def trace_function(fun, zoomParameter = 1, color = "red"):
     right_limit = width/zoomParameter
     domain = fun.getDomain(left_limit,right_limit, 2*width)
     step = 1/zoomParameter
-    x = left_limit
     turtle.penup()
     continuous = False
-    for i in range(2*width):
+    for i,x in zip(range(2*width),list(left_limit + a*step for a in range(2*width))):
         if x in domain:
             continuous = not continuous
         else:
@@ -98,7 +97,6 @@ def trace_function(fun, zoomParameter = 1, color = "red"):
                 turtle.pendown()
             else:
                 turtle.penup()
-        x += step
     turtle.update()
 
 
