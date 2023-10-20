@@ -4,6 +4,9 @@ import time
 import screeninfo
 from GraphFunction import GraphFunction
 
+# width / (zoom*30) = maxLimit
+# width / (zoom*300) = unitary grade
+
 
 def retrace(parameters,*funs):
     """
@@ -39,10 +42,12 @@ def trace_axis(zoom=1.0):
     :rtype: None
     """
 
-
-    turtle.tracer(0,0)
+    # axe x
     height = int(turtle.window_height() // 2)
     width = int(turtle.window_width() // 2)
+
+    zoom *= 30
+
     turtle.penup()
     turtle.color("black")
     turtle.goto(-1*width, 0)
@@ -53,6 +58,8 @@ def trace_axis(zoom=1.0):
     turtle.pendown()
     turtle.write("x", font=("Arial", 20, "normal"))
     turtle.penup()
+
+    #axe y
     turtle.goto(width, 0)
     turtle.pendown()
     turtle.goto(0, 0)
@@ -66,8 +73,14 @@ def trace_axis(zoom=1.0):
     turtle.pendown()
     turtle.goto(0, -1*height)
 
+    #graduation x
+    turtle.penup()
+    turtle.goto(width/10,-10)
+    turtle.pendown()
+    turtle.goto(width/10,10)
+    turtle.write(width/(zoom*10))
 
-
+# x' = x/zoom -> x = zoom * x'
 def trace_function(fun, zoomParameter = 1, color = "red"):
     """
     Trace the give function in red
@@ -78,7 +91,7 @@ def trace_function(fun, zoomParameter = 1, color = "red"):
     turtle.tracer(0,0)
     height = int(turtle.window_height() // 2)
     width = int(turtle.window_width() // 2)
-    zoomParameter = zoomParameter * 30
+    zoomParameter *= 30
     if zoomParameter == 0:
         zoomParameter = 1
     turtle.color(color)
@@ -108,6 +121,8 @@ if __name__ == "__main__":
         if(m.is_primary):
             screenWidth = m.width
             screenHeight = m.height
+
+    print(screenWidth)
     turtle.setup(width=screenWidth-20,height=screenHeight-20,startx=0,starty=0)
     turtle.hideturtle()
     turtle.speed("fastest")
