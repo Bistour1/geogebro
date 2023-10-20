@@ -26,6 +26,7 @@ def retrace(parameters,*funs):
             if not (p is None):
                 params[k] = p
         f(**params)
+        turtle.update()
 def trace_axis(zoom=1.0):
     """
     Trace the x and y axis with the given zoom.\n
@@ -64,7 +65,7 @@ def trace_axis(zoom=1.0):
     turtle.goto(0, height)
     turtle.pendown()
     turtle.goto(0, -1*height)
-    turtle.update()
+
 
 
 def trace_function(fun, zoomParameter = 1, color = "red"):
@@ -97,7 +98,6 @@ def trace_function(fun, zoomParameter = 1, color = "red"):
                 turtle.pendown()
             else:
                 turtle.penup()
-    turtle.update()
 
 
 if __name__ == "__main__":
