@@ -73,23 +73,28 @@ def trace_axis(zoom=1.0):
     turtle.pendown()
     turtle.goto(0, -1*height)
 
-    graduation = width//(zoom*10)
 
+    #graduations
+    graduation = int(width//(zoom*10))
+
+    number_x_graduation = int(width//(graduation*zoom))
+    number_y_graduation = int(height//(graduation*zoom))
 
     #graduation x
-    turtle.penup()
-    turtle.goto(graduation*zoom,-10)
-    turtle.pendown()
-    turtle.goto(graduation*zoom,10)
-    turtle.write(graduation)
+    for i in range(number_x_graduation*2+1):
+        turtle.penup()
+        turtle.goto(graduation*zoom*(i-number_x_graduation),-10)
+        turtle.pendown()
+        turtle.goto(graduation*zoom*(i-number_x_graduation),10)
+        turtle.write(graduation*(i-number_x_graduation))
 
     #graduation y
-
-    turtle.penup()
-    turtle.goto(-10, graduation*zoom)
-    turtle.pendown()
-    turtle.goto(10, graduation*zoom)
-    turtle.write(graduation)
+    for i in range(number_y_graduation*2+1):
+        turtle.penup()
+        turtle.goto(-10, graduation*zoom*(i-number_y_graduation))
+        turtle.pendown()
+        turtle.goto(10, graduation*zoom*(i-number_y_graduation))
+        turtle.write(graduation*(i-number_y_graduation))
 
 # x' = x/zoom -> x = zoom * x'
 def trace_function(fun, zoomParameter = 1, color = "red"):
@@ -133,7 +138,6 @@ if __name__ == "__main__":
             screenWidth = m.width
             screenHeight = m.height
 
-    print(screenWidth)
     turtle.setup(width=screenWidth-20,height=screenHeight-20,startx=0,starty=0)
     turtle.hideturtle()
     turtle.speed("fastest")
