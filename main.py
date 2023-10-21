@@ -73,12 +73,23 @@ def trace_axis(zoom=1.0):
     turtle.pendown()
     turtle.goto(0, -1*height)
 
+    graduation = width//(zoom*10)
+
+
     #graduation x
     turtle.penup()
-    turtle.goto(width/10,-10)
+    turtle.goto(graduation*zoom,-10)
     turtle.pendown()
-    turtle.goto(width/10,10)
-    turtle.write(width/(zoom*10))
+    turtle.goto(graduation*zoom,10)
+    turtle.write(graduation)
+
+    #graduation y
+
+    turtle.penup()
+    turtle.goto(-10, graduation*zoom)
+    turtle.pendown()
+    turtle.goto(10, graduation*zoom)
+    turtle.write(graduation)
 
 # x' = x/zoom -> x = zoom * x'
 def trace_function(fun, zoomParameter = 1, color = "red"):
