@@ -1,14 +1,41 @@
+import copy
 import turtle
 from math import sin, cos, tan, exp, pi, log, log2, log10
 import time
 import screeninfo
 from GraphFunction import GraphFunction
+import tkinter
 
 # width / (zoom*30) = maxLimit
 # width / (zoom*300) = unitary grade
 
+retrace_parameters = {}
+retrace_funs = []
+def main():
+    def quit():
+        root.destroy()
 
-def retrace(parameters,*funs):
+
+    root = tkinter.Tk()
+    root.title("GEOGEBRO")
+    root.resizable(width= True, height=True)
+    bar = tkinter.Menu(root)
+    fileMenu = tkinter.Menu(bar, tearoff=0)
+    fileMenu.add_command(label="Exit", command=quit)
+    bar.add_cascade(label="File", menu=fileMenu)
+    root.config(menu= bar)
+    mainFrame = tkinter.Frame(root, borderwidth=1, padx=5, pady=5)
+    mainFrame.pack()
+    root.geometry("400x250+300+300")
+    canvas = tkinter.Canvas(mainFrame)
+    canvas.pack()
+    canvas.create_line(0,0,100,100)
+
+    tkinter.mainloop()
+
+
+
+def retrace(x, y):
     """
     execute all the given function with the given parameters\n
     you have to give as many parameters as the functions ask and name it
@@ -20,7 +47,10 @@ def retrace(parameters,*funs):
     :return: None
     :rtype: None
     """
-
+    turtle.clearscreen()
+    parameters = copy.deepcopy(retrace_parameters)
+    funs = copy.deepcopy(retrace_funs)
+    turtle.tracer(0,0)
     for f in funs:
         params = {}
         for _ in range(f.__code__.co_argcount):
@@ -29,7 +59,8 @@ def retrace(parameters,*funs):
             if not (p is None):
                 params[k] = p
         f(**params)
-        turtle.update()
+    turtle.update()
+    return turtle.getscreen()
 def trace_axis(zoom=1.0):
     """
     Trace the x and y axis with the given zoom.\n
@@ -129,9 +160,14 @@ def trace_function(fun, zoomParameter = 1, color = "red"):
                 turtle.penup()
 
 
+
 if __name__ == "__main__":
-    turtle.clear()
+    main()
+
+"""
+    turtle.clearscreen()
     screenWidth = 0
+
     screenHeight = 0
     for m in screeninfo.get_monitors():
         if(m.is_primary):
@@ -143,6 +179,10 @@ if __name__ == "__main__":
     turtle.speed("fastest")
     f = GraphFunction(turtle.textinput("Parameters","function :"))
     zoom = float(turtle.numinput("parameter","zoom = "))
-    turtle.onclick(retrace({"zoom": zoom,"fun": f,"zoomParameter": zoom, "color": None}, trace_axis,trace_function),"f")
-    turtle.listen()
-    turtle.mainloop()
+    retrace_parameters = {"zoom": zoom,"fun": f,"zoomParameter": zoom, "color": None}
+    retrace_funs = trace_axis,trace_function
+    turtle.getscreen().onclick(retrace)
+    turtle.getscreen().listen()
+    retrace(0, 0)
+    turtle.done()
+    """
